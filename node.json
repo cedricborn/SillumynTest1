@@ -6,7 +6,7 @@
         "name": "video",
         "type": "resource",
         "valid": ["video"],
-        "default": "test.mp4"
+        "default": "example.mp4"
     }, {
         "title": "Audio",
         "ui_width": 4,
