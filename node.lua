@@ -8,28 +8,20 @@ local VIDEO_DURATION = 20     -- Fixed video duration in seconds
 local EVENT_DURATION = 4     -- Fixed video duration in seconds
 local EVENT_TIMING = 10     -- Fixed video duration in seconds
 
--- Helper function to extract a value from the options array
-local function get_option(options, name)
-    for _, option in ipairs(options) do
-        if option.name == name then
-            return option.default
-        end
-    end
-    return nil
-end
+
 
 -- Watch for changes in node.json
-util.json_watch("node.json", function(config)
+util.json_watch("config.json", function(config)
     if video then
         video:dispose()  -- Dispose of the old video
     end
     
     -- Extract values from the options array
-    local video_file = get_option(config.options, "video")
-    local audio_enabled = get_option(config.options, "audio")
-	VIDEO_DURATION = get_option(config.options, "video_duration")
-	EVENT_DURATION = get_option(config.options, "event_duration") 
-	EVENT_TIMING = get_option(config.options, "event_timing") 
+    local video_file = config.video.asset_name
+    local audio_enabled = config.audio
+	VIDEO_DURATION = config.video_duration
+	EVENT_DURATION = config.event_duration
+	EVENT_TIMING = config.event_timing
 
     -- Load the video resource
     video = resource.load_video{
